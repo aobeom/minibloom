@@ -7,17 +7,23 @@ Simple bloom filter using murmurhash3.
 ```go
 package main
 
-import "github.com/aobeom/minibloom"
+import (
+    "fmt"
 
-size := 2 << 20
-counts := 7
-bloom := minibloom.New(size, counts)
+    "github.com/aobeom/minibloom"
+)
 
-key := "test1"
+func main() {
+    size := 2 << 20
+    counts := 7
+    bloom := minibloom.New(size, counts)
 
-bloom.Add([]byte(key))
+    key := "test1"
 
-if bloom.In([]byte(key)) {
-    fmt.Println("exist")
+    bloom.Add([]byte(key))
+
+    if bloom.In([]byte(key)) {
+        fmt.Println("exist")
+    }
 }
 ```
