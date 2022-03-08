@@ -27,3 +27,7 @@ func main() {
     }
 }
 ```
+
+## Reference
+
+[formulas](https://stackoverflow.com/questions/658439/how-many-hash-functions-does-my-bloom-filter-need)

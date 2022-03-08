@@ -2,6 +2,7 @@ package minibloom
 
 import (
 	"log"
+	"math"
 
 	"github.com/damnever/bitarray"
 	"github.com/spaolacci/murmur3"
@@ -12,6 +13,26 @@ type MiniBloom struct {
 	bitmap     *bitarray.BitArray
 	size       int
 	hashCounts int
+}
+
+// Calculate
+//	n: the expected number of items
+//	p: accepted false positive rate
+//
+//	formulas:
+//	m: (size) bloom filter size (bit)
+//	k: (hashCounts) number of hash functions
+//
+//	m = -n*ln(p) / (ln(2)^2)
+//	k = m/n * ln(2)
+func Calculate(n int, p float64) (size, hashCounts int) {
+	nf := float64(n)
+	m := -nf * math.Log(p) / math.Pow(math.Log(2), 2)
+	k := m / nf * math.Log(2)
+
+	size = int(math.Ceil(m))
+	hashCounts = int(math.Ceil(k))
+	return
 }
 
 // New create a bitmap
