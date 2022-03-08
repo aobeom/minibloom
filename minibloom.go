@@ -17,15 +17,14 @@ type MiniBloom struct {
 
 // Calculate
 //	n: the expected number of items
-//	p: accepted false positive rate
-//
-//	formulas:
-//	m: (size) bloom filter size (bit)
-//	k: (hashCounts) number of hash functions
-//
-//	m = -n*ln(p) / (ln(2)^2)
-//	k = m/n * ln(2)
+//	p: accepted false positive rate (0.01 = 1%)
 func Calculate(n int, p float64) (size, hashCounts int) {
+	//	formulas:
+	//	m: (size) bloom filter size (bit)
+	//	k: (hashCounts) number of hash functions
+	//
+	//	m = -n*ln(p) / (ln(2)^2)
+	//	k = m/n * ln(2)
 	nf := float64(n)
 	m := -nf * math.Log(p) / math.Pow(math.Log(2), 2)
 	k := m / nf * math.Log(2)
